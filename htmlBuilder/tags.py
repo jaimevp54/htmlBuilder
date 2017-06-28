@@ -1,6 +1,7 @@
-from attributes import Class, InlineStyle
+from .attributes import Class, InlineStyle
+from .utils import flatten_params
+
 from itertools import repeat, chain
-from utils import flatten_params
 
 
 class Text:
