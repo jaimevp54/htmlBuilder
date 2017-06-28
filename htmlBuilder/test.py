@@ -1,7 +1,7 @@
 import unittest
 
-from htmlBuilder import HtmlTag, SelfClosingHtmlTag, DOCTYPE
-from utils import flatten_params
+from htmlBuilder.tags import HtmlTag, SelfClosingHtmlTag, DOCTYPE
+from htmlBuilder.utils import flatten_params
 
 
 class TestFlattenMethod(unittest.TestCase):
@@ -35,3 +35,16 @@ class TestTagRendering(unittest.TestCase):
     def test_self_closing_tag_render(self):
         for tag in filter(lambda tag: tag is not DOCTYPE, self.self_closing_tags):
             self.assertEqual(tag().render(), f"<{tag.__name__.lower()}/>")
+
+
+class TestTimesTagMethod(unittest.TestCase):
+    def test_returns_list(self):
+        self.assertIsInstance(HtmlTag().times(1), list)
+
+    def test_returned_list_length(self):
+        self.assertEquals(len(HtmlTag().times(10)), 10)
+
+    def test_element_types(self):
+        tag: HtmlTag = HtmlTag()
+        self.assertEquals(tag.times(2), [tag, tag])
+

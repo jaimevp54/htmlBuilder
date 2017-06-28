@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='htmlBuilder',
     packages=['htmlBuilder'],
-    version='0.1.0',
+    version='0.1.1',
     description='A beautiful html builder library.',
     author='Jaime Viñas',
     author_email='jaimevp54@gmail.com',

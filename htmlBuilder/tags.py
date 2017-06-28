@@ -39,7 +39,7 @@ class HtmlTag:
             f"</{self._name}>"
         ])
 
-    def times(self, times):
+    def times(self, times) -> list:
         return list(repeat(self, times))
 
 
