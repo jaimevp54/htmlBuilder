@@ -1,0 +1,2 @@
+class InvalidAttribute(TypeError):
+    pass
