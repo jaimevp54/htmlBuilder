@@ -9,3 +9,4 @@ pip-delete-this-directory.txt
 .idea
 use_examples.py
 output.html
+.pypirc
