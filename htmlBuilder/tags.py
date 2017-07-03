@@ -1,4 +1,5 @@
-from .attributes import Class, InlineStyle
+from htmlBuilder.exceptions import InvalidAttribute
+from .attributes import HtmlTagAttribute
 from .utils import flatten_params
 
 from itertools import repeat, chain
@@ -16,30 +17,42 @@ class Text:
 
 
 class HtmlTag:
-    allowed_inner_tags = []
-    allowed_attributes = []
+    belongs_to: list = None
 
     def __init__(self, *params):
         params = flatten_params(params)
         self._name = self.__class__.__name__.lower()
-        self._style = next((item for item in params if isinstance(item, InlineStyle)), None)
-        self._class = next((item for item in params if isinstance(item, Class)), None)
+
+        self._attributes = []
+        for item in params:
+            if isinstance(item, HtmlTagAttribute):
+                if item.belongs_to and self.__class__.__name__ not in item.belongs_to:
+                    raise InvalidAttribute(f"{item.__class__} is not allowed in {self.__class__} ")
+                else:
+                    self._attributes.append(item)
+
         self._inner_tags = list(
             filter(lambda item: issubclass(item.__class__, HtmlTag) or isinstance(item, Text),
                    chain(params))
         )
 
-    def render(self):
-        return "".join([
-            f"<{self._name}",
-            f" style='{str(self._style)}'" if self._style else "",
-            f" class='{str(self._class)}'" if self._class else "",
-            f">",
-            " ".join((tag.render() for tag in self._inner_tags)),
-            f"</{self._name}>"
-        ])
+    @property
+    def name(self) -> str:
+        return self._name
 
-    def times(self, times):
+    def render(self) -> str:
+        tag_components: list = [
+                                   f"<{self._name}",
+                               ] + [
+                                   f" {attribute.name}='{str(attribute.value)}'" for attribute in self._attributes
+                               ] + [
+                                   f">",
+                                   " ".join((tag.render() for tag in self._inner_tags)),
+                                   f"</{self._name}>",
+                               ]
+        return "".join(tag_components)
+
+    def times(self, times) -> list:
         return list(repeat(self, times))
 
 
@@ -48,12 +61,14 @@ class SelfClosingHtmlTag(HtmlTag):
         super().__init__(*params)
 
     def render(self):
-        return "".join([
-            f"<{self._name}",
-            f" style='{str(self._style)}'" if self._style else "",
-            f" class='{str(self._class)}'" if self._class else "",
-            f"/>",
-        ])
+        tag_components: list = [
+                                   f"<{self._name}",
+                               ] + [
+                                   f" {attribute.name}='{str(attribute.value)}'" for attribute in self._attributes
+                               ] + [
+                                   f"/>",
+                               ]
+        return "".join(tag_components)
 
 
 class DOCTYPE(SelfClosingHtmlTag):
