@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to htmlBuilder’s documentation! &mdash; htmlBuilder 0.1.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="htmlBuilder 0.1.2 documentation" href="#"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> htmlBuilder
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to htmlBuilder&#8217;s documentation!</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#how-to-contribute">How to contribute</a></li>
+<li><a class="reference internal" href="#liscense">Liscense</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">htmlBuilder</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to htmlBuilder&#8217;s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-htmlbuilder-s-documentation">
+<h1>Welcome to htmlBuilder&#8217;s documentation!<a class="headerlink" href="#welcome-to-htmlbuilder-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>HtmlBuilder is a python library with the purpose of allowing you to render html by writing python code and also to make use of python features like comprehensions, clean syntax  and object oriented design to its full potential.</p>
+<p>A simple example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># import necesary tags and attributes</span>
+<span class="kn">from</span> <span class="nn">htmlBuilder.tags</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">htmlBuilder.attributes</span> <span class="k">import</span> <span class="n">Class</span><span class="p">,</span> <span class="n">InlineStyle</span>
+
+
+<span class="c1"># html tags are represented as classes</span>
+<span class="n">html</span> <span class="o">=</span> <span class="n">Html</span><span class="p">(</span>
+    <span class="c1"># any tag can receive another tag as constructor parameter</span>
+    <span class="n">Head</span><span class="p">(</span>
+        <span class="n">Title</span><span class="p">(</span><span class="n">Text</span><span class="p">(</span><span class="s2">&quot;A beautiful site&quot;</span><span class="p">))</span>
+    <span class="p">),</span>
+    <span class="n">Body</span><span class="p">(</span>
+        <span class="c1"># tag&#39;s contructors can also receive attributes</span>
+        <span class="n">Class</span><span class="p">(</span><span class="s1">&#39;btn&#39;</span><span class="p">,</span> <span class="s1">&#39;btn-success&#39;</span><span class="p">),</span> <span class="n">InlineStyle</span><span class="p">(</span><span class="n">background_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s1">&#39;35px&#39;</span><span class="p">),</span>
+        <span class="n">Hr</span><span class="p">(),</span>
+        <span class="n">Div</span><span class="p">(</span>
+            <span class="n">Div</span><span class="p">()</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="c1"># no closing tags are required</span>
+
+<span class="c1"># call the render() method to return tag instances as html text</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">html</span><span class="o">.</span><span class="n">render</span><span class="p">())</span>
+
+
+<span class="c1">######### result #########</span>
+
+<span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="n">A</span> <span class="n">beautiful</span> <span class="n">site</span><span class="o">&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">body</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;background-color:red; bottom:35px;&#39;</span> <span class="n">class</span><span class="o">=</span><span class="s1">&#39;btn btn-success&#39;</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">hr</span><span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>A not so simple example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">htmlBuilder.attributes</span> <span class="k">import</span> <span class="n">Class</span>
+<span class="kn">from</span> <span class="nn">htmlBuilder.tags</span> <span class="k">import</span> <span class="n">Html</span><span class="p">,</span> <span class="n">Head</span><span class="p">,</span> <span class="n">Title</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">Body</span><span class="p">,</span> <span class="n">Nav</span><span class="p">,</span> <span class="n">Div</span><span class="p">,</span> <span class="n">Footer</span><span class="p">,</span> <span class="n">Ul</span><span class="p">,</span> <span class="n">Li</span>
+
+<span class="c1"># declare data</span>
+<span class="n">users</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jose&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;movies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A beautiful mind&#39;</span><span class="p">,</span> <span class="s1">&#39;Red&#39;</span><span class="p">],</span>
+        <span class="s2">&quot;favorite-number&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jaime&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;movies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;The breakfast club&#39;</span><span class="p">,</span> <span class="s1">&#39;Fight club&#39;</span><span class="p">],</span>
+        <span class="s2">&quot;favorite-number&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Jhon&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;movies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;The room&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes man&#39;</span><span class="p">],</span>
+        <span class="s2">&quot;favorite-number&quot;</span><span class="p">:</span> <span class="mi">987654321</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+
+
+<span class="c1"># functions can be used to handle recurring tag structures</span>
+<span class="k">def</span> <span class="nf">my_custom_nav</span><span class="p">():</span>
+
+    <span class="c1"># these functions can return a tag or a list of tags ( [tag1,tag2,tag3] )</span>
+    <span class="k">return</span> <span class="n">Nav</span><span class="p">(</span>
+        <span class="n">Class</span><span class="p">(</span><span class="s2">&quot;nav pretty&quot;</span><span class="p">),</span>
+        <span class="n">Div</span><span class="p">(</span><span class="n">Text</span><span class="p">(</span><span class="s2">&quot;A beautiful NavBar&quot;</span><span class="p">))</span>
+    <span class="p">)</span>
+
+
+<span class="n">html</span> <span class="o">=</span> <span class="n">Html</span><span class="p">(</span>
+    <span class="n">Head</span><span class="p">(</span>
+        <span class="n">Title</span><span class="p">(</span><span class="n">Text</span><span class="p">(</span><span class="s2">&quot;An awesome site&quot;</span><span class="p">))</span>
+    <span class="p">),</span>
+    <span class="n">Body</span><span class="p">(</span>
+
+        <span class="n">my_custom_nav</span><span class="p">(),</span> <span class="c1"># calling previously defined function</span>
+        <span class="p">[</span><span class="n">Div</span><span class="p">(</span>
+            <span class="n">Class</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;user-{user[&#39;name&#39;].lower()}&quot;</span><span class="p">),</span> <span class="c1"># string formating can be used to handle dinamic data</span>
+            <span class="n">Div</span><span class="p">(</span><span class="n">Text</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])),</span>
+            <span class="n">Ul</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">Li</span><span class="p">(</span><span class="n">Text</span><span class="p">(</span><span class="n">movie</span><span class="p">))</span> <span class="k">for</span> <span class="n">movie</span> <span class="ow">in</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;movies&quot;</span><span class="p">]]</span> <span class="c1"># list comprehensions can be used to easily render multiple tags</span>
+            <span class="p">)</span> <span class="k">if</span> <span class="n">user</span><span class="p">[</span><span class="s1">&#39;favorite-number&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="n">Text</span><span class="p">(</span><span class="s2">&quot;Favorite number is too high&quot;</span><span class="p">)</span> <span class="c1"># python&#39;s ternary operation is allowed too</span>
+        <span class="p">)</span> <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">],</span>
+        <span class="n">Footer</span><span class="p">(</span><span class="n">Text</span><span class="p">(</span><span class="s2">&quot;My Footer&quot;</span><span class="p">)),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">html</span><span class="o">.</span><span class="n">render</span><span class="p">())</span>
+
+
+<span class="c1">######### result #########</span>
+
+<span class="c1"># &lt;html&gt;</span>
+<span class="c1"># &lt;head&gt;&lt;title&gt;An awesome site&lt;/title&gt;&lt;/head&gt;</span>
+<span class="c1"># &lt;body&gt;</span>
+<span class="c1"># &lt;nav class=&#39;nav pretty&#39;&gt;</span>
+<span class="c1">#     &lt;div&gt;A beautiful NavBar&lt;/div&gt;</span>
+<span class="c1"># &lt;/nav&gt;</span>
+<span class="c1"># &lt;div class=&#39;user-jose&#39;&gt;</span>
+<span class="c1">#     &lt;div&gt;Jose&lt;/div&gt;</span>
+<span class="c1">#     &lt;ul&gt;</span>
+<span class="c1">#         &lt;li&gt;A beautiful mind&lt;/li&gt;</span>
+<span class="c1">#         &lt;li&gt;Red&lt;/li&gt;</span>
+<span class="c1">#     &lt;/ul&gt;</span>
+<span class="c1"># &lt;/div&gt;</span>
+<span class="c1"># &lt;div class=&#39;user-jaime&#39;&gt;</span>
+<span class="c1">#     &lt;div&gt;Jaime&lt;/div&gt;</span>
+<span class="c1">#     &lt;ul&gt;</span>
+<span class="c1">#         &lt;li&gt;The breakfast club&lt;/li&gt;</span>
+<span class="c1">#         &lt;li&gt;Fight club&lt;/li&gt;</span>
+<span class="c1">#     &lt;/ul&gt;</span>
+<span class="c1"># &lt;/div&gt;</span>
+<span class="c1"># &lt;div class=&#39;user-jhon&#39;&gt;</span>
+<span class="c1">#     &lt;div&gt;Jhon&lt;/div&gt;</span>
+<span class="c1">#     Favorite number is too high</span>
+<span class="c1"># &lt;/div&gt;</span>
+<span class="c1"># &lt;footer&gt;My Footer&lt;/footer&gt;</span>
+<span class="c1"># &lt;/body&gt;</span>
+<span class="c1"># &lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Wait! ... Maybe that was too much as an starting example, but that was a bit of what htmlBuilder is capable of doing.</p>
+<dl class="docutils">
+<dt>Other features include</dt>
+<dd><ul class="first last simple">
+<li><strong>Type safe tag rendering</strong>: By default htmlBuilder validates that tags and attributes are used within valid parent tags.(for example an li can&#8217;t be created outside an ul or ol tag)</li>
+</ul>
+</dd>
+</dl>
+<p>For more detailed information checkout the <cite>Source Code &lt;www.github.com/jaimevp54/htmlBuilder&gt;</cite></p>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Python 3.6 or higher is required to use htmlBuilder. If you meet this requirement just run</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">htmlbuilder</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-contribute">
+<h1>How to contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this headline">¶</a></h1>
+<p>The whole source code is available on <a class="reference external" href="www.github.com/jaimevp54/htmlBuilder">GitHub</a>.</p>
+<p>Feel to open an <a class="reference external" href="www.github.com/jaimevp54/htmlBuilder/issues">Issue</a> or to submit a pull request.</p>
+</div>
+<div class="section" id="liscense">
+<h1>Liscense<a class="headerlink" href="#liscense" title="Permalink to this headline">¶</a></h1>
+<p>The project is licensed under the MIT license.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Jaime Vinas.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
