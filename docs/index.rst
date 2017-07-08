@@ -4,14 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to htmlBuilder's documentation!
-=======================================
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-Html Builder
-=============
+---------------------------------------
 HtmlBuilder is a python library with the purpose of allowing you to render html by writing python code and also to make use of python features like comprehensions, clean syntax  and object oriented design to its full potential. 
 
 A simple example ::
@@ -144,6 +137,9 @@ A not so simple example ::
 
 Wait! ... Maybe that was too much as an starting example, but that was a bit of what htmlBuilder is capable of doing.
 
+Other features include
+ - **Type safe tag rendering**: By default htmlBuilder validates that tags and attributes are used within valid parent tags.(for example an li can't be created outside an ul or ol tag)
+
 For more detailed information checkout the `Source Code <www.github.com/jaimevp54/htmlBuilder>`
 
 
@@ -160,8 +156,9 @@ The whole source code is available on `GitHub <www.github.com/jaimevp54/htmlBuil
 
 Feel to open an `Issue <www.github.com/jaimevp54/htmlBuilder/issues>`_ or to submit a pull request.
 
-Liscence
+Liscense
 --------
 The project is licensed under the MIT license.
+
 
 
