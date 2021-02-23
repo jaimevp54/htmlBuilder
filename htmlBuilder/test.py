@@ -86,15 +86,3 @@ class TestTagAttributeRendering(unittest.TestCase):
                     except InvalidAttributeError:
                         self.error_count += 1
         self.assertEqual(self.error_count, self.expected_error_count)
-
-
-class TestTimesTagMethod(unittest.TestCase):
-    def test_returns_list(self):
-        self.assertIsInstance(HtmlTag().times(1), list)
-
-    def test_returned_list_length(self):
-        self.assertEquals(len(HtmlTag().times(10)), 10)
-
-    def test_element_types(self):
-        tag: HtmlTag = HtmlTag()
-        self.assertEquals(tag.times(2), [tag, tag])

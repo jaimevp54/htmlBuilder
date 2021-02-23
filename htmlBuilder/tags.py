@@ -55,9 +55,6 @@ class HtmlTag:
                                ]
         return "".join(tag_components)
 
-    def times(self, times) -> list:
-        return list(repeat(self, times))
-
 
 class SelfClosingHtmlTag(HtmlTag):
     def __init__(self, *params):
