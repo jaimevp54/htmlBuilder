@@ -1,7 +1,7 @@
 import unittest
 
-from htmlBuilder.exceptions import InvalidAttribute
-from htmlBuilder.tags import HtmlTag, SelfClosingHtmlTag, DOCTYPE, Div, A
+from htmlBuilder.exceptions import HtmlBuildError, InvalidAttributeError, NestingError
+from htmlBuilder.tags import HtmlTag, SelfClosingHtmlTag, DOCTYPE, Div, A, Text
 from htmlBuilder.utils import flatten_params
 from htmlBuilder.attributes import HtmlTagAttribute, InlineStyle, Href, Autofocus
 
@@ -16,6 +16,19 @@ class TestFlattenMethod(unittest.TestCase):
     def test_nested_three_levels(self):
         self.assertEqual(flatten_params([1, [[2, [3]], 4]]), [1, 2, 3, 4])
 
+
+class TestTagObjectCreation(unittest.TestCase):
+
+    def test_html_tag_params_must_be_an_html_tag_attr_or_text_instance(self):
+        HtmlTag(Div())
+        HtmlTag(InlineStyle())
+        HtmlTag(Text("Test"))
+        with self.assertRaises(HtmlBuildError):
+            HtmlTag(Div)
+
+    def test_self_closing_tags_dont_allow_inner_tags(self):
+        with self.assertRaises(NestingError):
+            SelfClosingHtmlTag(Div())
 
 class TestTagRendering(unittest.TestCase):
     def setUp(self):
@@ -70,7 +83,7 @@ class TestTagAttributeRendering(unittest.TestCase):
                     try:
                         tag(attribute('test'))
                         print('ups')
-                    except InvalidAttribute:
+                    except InvalidAttributeError:
                         self.error_count += 1
         self.assertEqual(self.error_count, self.expected_error_count)
 
