@@ -1,7 +1,14 @@
 # Html Builder
 
 HtmlBuilder is a python library that allows you to render html files by writing python code.
-The official documentation is hosted at **Read The Docs** and it can be found [here](www.htmlBuilder.readthedocs.io)
+
+# Why do you care about this library?
+
+When rendering HTML programmatically there are other options available (template engines and other rendering libraries) but these are often limited in what they can do or add a new level of abstraction that has to be learned to be productive. HtmlBuilder tries to improve on this by following the next few points:
+
+- **Minimal learning curve**:(For the most part) Python and HTML knowledge are all that are needed to use this tool effectively.
+- **Real python code**: The resulting code looks and behaves as you would expect from other python code.
+- **Easily testable**: The html object structure can be introspected **before** being rendered as a html string for it to be easily tested.
 
 ## Installation
 run `pip install htmlbuilder`
@@ -21,7 +28,7 @@ html = Html(
         Title(Text("A beautiful site"))
     ),
     Body(
-        # tag's contructors can also receive attributes
+        # tag's constructors can also receive attributes
         Class('btn', 'btn-success'), InlineStyle(background_color='red', bottom='35px'),
         Hr(),
         Div(
@@ -37,17 +44,17 @@ print(html.render())
 
 ######### result #########
 
-<html>
-    <head>
-        <title>A beautiful site</title>
-    </head>
-    <body style='background-color:red; bottom:35px;' class='btn btn-success'>
-        <hr/>
-        <div>
-            <div></div>
-        </div>
-    </body>
-</html>
+# <html>
+#     <head>
+#         <title>A beautiful site</title>
+#     </head>
+#     <body style='background-color:red; bottom:35px;' class='btn btn-success'>
+#         <hr/>
+#         <div>
+#             <div></div>
+#         </div>
+#     </body>
+# </html>
 ```
 
 ### A not so simple example
@@ -91,10 +98,9 @@ html = Html(
         Title(Text("An awesome site"))
     ),
     Body(
-        
         my_custom_nav(), # calling previously defined function
         [Div(
-            Class(f"user-{user['name'].lower()}"), # string formating can be used to handle dinamic data
+            Class(f"user-{user['name'].lower()}"), # string formatting can be used to handle dynamic data
             Div(Text(user['name'])),
             Ul(
                 [Li(Text(movie)) for movie in user["movies"]] # list comprehensions can be used to easily render multiple tags
