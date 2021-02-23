@@ -1,4 +1,4 @@
-from htmlBuilder.exceptions import InvalidAttribute
+from htmlBuilder.exceptions import HtmlBuildError, InvalidAttributeError, NestingError
 from .attributes import HtmlTagAttribute
 from .utils import flatten_params
 
@@ -24,17 +24,20 @@ class HtmlTag:
         self._name = self.__class__.__name__.lower()
 
         self._attributes = []
+        self._inner_tags = []
         for item in params:
             if isinstance(item, HtmlTagAttribute):
                 if item.belongs_to and self.__class__.__name__ not in item.belongs_to:
-                    raise InvalidAttribute(f"{item.__class__} is not allowed in {self.__class__} ")
+                    raise InvalidAttributeError(f"{item.__class__} is not allowed in {self.__class__} ")
                 else:
                     self._attributes.append(item)
 
-        self._inner_tags = list(
-            filter(lambda item: issubclass(item.__class__, HtmlTag) or isinstance(item, Text),
-                   chain(params))
-        )
+            elif issubclass(item.__class__, HtmlTag) or isinstance(item, Text):
+                self._inner_tags.append(item)
+
+            else:
+                raise HtmlBuildError("All HtmlTag __init__ params must be 'HtmlTag', 'HtmlTagAttributes' or 'Text' instances, {item} was found")
+
 
     @property
     def name(self) -> str:
@@ -59,6 +62,9 @@ class HtmlTag:
 class SelfClosingHtmlTag(HtmlTag):
     def __init__(self, *params):
         super().__init__(*params)
+        if self._inner_tags:
+            raise NestingError(f"SelfClosingHtmlTag {self.name} should not have inner tags, {self._inner_tags[0].name} was found")
+
 
     def render(self):
         tag_components: list = [
