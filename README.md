@@ -22,16 +22,14 @@ from htmlBuilder.attributes import Class, InlineStyle
 
 
 # html tags are represented as classes 
-html = Html(
+html = Html([],
     # any tag can receive another tag as constructor parameter
-    Head(
-        Title(Text("A beautiful site"))
+    Head([],
+        Title("A beautiful site")
     ),
-    Body(
-        # tag's constructors can also receive attributes
-        Class('btn', 'btn-success'), InlineStyle(background_color='red', bottom='35px'),
+    Body([Class('btn', 'btn-success'), InlineStyle(background_color='red', bottom='35px')],
         Hr(),
-        Div(
+        Div([],
             Div()
         )
     ),
@@ -61,7 +59,7 @@ print(html.render())
 
 ```python
 from htmlBuilder.attributes import Class
-from htmlBuilder.tags import Html, Head, Title, Text, Body, Nav, Div, Footer, Ul, Li
+from htmlBuilder.tags import Html, Head, Title, Body, Nav, Div, Footer, Ul, Li
 
 # declare data
 users = [
@@ -85,28 +83,25 @@ users = [
 
 # functions can be used to handle recurring tag structures
 def my_custom_nav():
-
     # these functions can return a tag or a list of tags ( [tag1,tag2,tag3] )
-    return Nav(
-        Class("nav pretty"),
-        Div(Text("A beautiful NavBar"))
+    return Nav([Class("nav pretty")],
+        Div([], "A beautiful NavBar")
     )
 
 
-html = Html(
-    Head(
-        Title(Text("An awesome site"))
+html = Html([],
+    Head([],
+        Title([], "An awesome site")
     ),
-    Body(
+    Body([],
         my_custom_nav(), # calling previously defined function
-        [Div(
-            Class(f"user-{user['name'].lower()}"), # string formatting can be used to handle dynamic data
-            Div(Text(user['name'])),
-            Ul(
-                [Li(Text(movie)) for movie in user["movies"]] # list comprehensions can be used to easily render multiple tags
-            ) if user['favorite-number'] < 100 else Text("Favorite number is too high") # python's ternary operation is allowed too
+        [Div([Class(f"user-{user['name'].lower()}")],
+            Div([], user['name']),
+            Ul([],
+                [Li([], movie) for movie in user["movies"]] # list comprehensions can be used to easily render multiple tags
+            ) if user['favorite-number'] < 100 else "Favorite number is too high" # python's ternary operation is allowed too
         ) for user in users], 
-        Footer(Text("My Footer")),
+        Footer([], "My Footer"),
     )
 )
 
