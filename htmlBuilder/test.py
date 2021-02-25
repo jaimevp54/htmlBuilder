@@ -19,20 +19,20 @@ class TestFlattenMethod(unittest.TestCase):
 
 class TestTagObjectCreation(unittest.TestCase):
 
-    def test_html_tag_params_must_be_an_html_tag_attr_or_text_instance(self):
+    def test_html_tag_params_must_be_an_html_tag_attr_or_str_instance(self):
         HtmlTag(Div())
         HtmlTag(InlineStyle())
-        HtmlTag(Text("Test"))
+        HtmlTag("Test")
         with self.assertRaises(HtmlBuildError):
             HtmlTag(Div)
 
-    def test_self_closing_tags_dont_allow_inner_tags(self):
+    def test_self_closing_tags_dont_allow_inner_tags_or_str_instance(self):
         with self.assertRaises(NestingError):
             SelfClosingHtmlTag(Div())
 
 class TestTagRendering(unittest.TestCase):
     def setUp(self):
-        self.not_self_closing_tags = list(filter(lambda tag: tag is not SelfClosingHtmlTag, HtmlTag.__subclasses__()))
+        self.not_self_closing_tags = filter(lambda tag: tag is not SelfClosingHtmlTag, HtmlTag.__subclasses__())
         self.self_closing_tags = SelfClosingHtmlTag.__subclasses__()
 
     def test_empty_tag_render(self):
@@ -51,6 +51,32 @@ class TestTagRendering(unittest.TestCase):
     def test_self_closing_tag_render(self):
         for tag in filter(lambda tag: tag is not DOCTYPE, self.self_closing_tags):
             self.assertEqual(tag().render(), f"<{tag.__name__.lower()}/>")
+
+    def test_text_renders_correctly_inside_tags(self):
+        test_str = "Testing"
+        self.assertEqual(
+            HtmlTag(
+                test_str
+            ).render(),
+            f"<htmltag>{test_str}</htmltag>"
+        )
+
+        self.assertEqual(
+            Div(
+                test_str,
+                test_str
+            ).render(),
+            f"<div>{test_str}{test_str}</div>"
+        )
+
+        self.assertEqual(
+            Div(
+                test_str,
+                A(),
+                test_str
+            ).render(),
+            f"<div>{test_str}<a></a>{test_str}</div>"
+        )
 
 
 class TestTagAttributeRendering(unittest.TestCase):

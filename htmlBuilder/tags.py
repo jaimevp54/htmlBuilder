@@ -32,6 +32,9 @@ class HtmlTag:
                 else:
                     self._attributes.append(item)
 
+            elif isinstance(item, str):
+                self._inner_tags.append(Text(item))
+
             elif issubclass(item.__class__, HtmlTag) or isinstance(item, Text):
                 self._inner_tags.append(item)
 
@@ -50,7 +53,7 @@ class HtmlTag:
                                    f" {attribute.name}='{str(attribute.value)}'" for attribute in self._attributes
                                ] + [
                                    f">",
-                                   " ".join((tag.render() for tag in self._inner_tags)),
+                                   "".join((tag.render() for tag in self._inner_tags)),
                                    f"</{self._name}>",
                                ]
         return "".join(tag_components)
