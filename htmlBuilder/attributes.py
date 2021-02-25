@@ -30,7 +30,7 @@ class InlineStyle(HtmlTagAttribute):
                 self._value += f"{key}: {val}; "
 
     def __str__(self):
-        return
+        return self._value
 
 
 class Accept(HtmlTagAttribute):
