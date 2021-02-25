@@ -36,7 +36,7 @@ class HtmlTag:
                 self._inner_tags.append(item)
 
             else:
-                raise HtmlBuildError("All HtmlTag __init__ params must be 'HtmlTag', 'HtmlTagAttributes' or 'Text' instances, {item} was found")
+                raise HtmlBuildError(f"All HtmlTag __init__ params must be 'HtmlTag', 'HtmlTagAttributes' or 'Text' instances, {item} was found")
 
 
     @property
