@@ -19,27 +19,27 @@ class Text:
 class HtmlTag:
     belongs_to: list = None
 
-    def __init__(self, *params):
-        params = flatten_params(params)
+    def __init__(self, attributes=tuple(), *inner_content):
         self._name = self.__class__.__name__.lower()
-
-        self._attributes = []
+        self.attributes = attributes
         self._inner_tags = []
-        for item in params:
-            if isinstance(item, HtmlTagAttribute):
-                if item.belongs_to and self.__class__.__name__ not in item.belongs_to:
-                    raise InvalidAttributeError(f"{item.__class__} is not allowed in {self.__class__} ")
-                else:
-                    self._attributes.append(item)
 
-            elif isinstance(item, str):
+        for attr in attributes:
+            if not isinstance(attr, HtmlTagAttribute):
+                raise HtmlBuildError(
+                    "HtmlTag's 'attributes' elements must be HtmlTagAttribute instances. [{attr}->{attr.__class__.__name__}] found" 
+                )
+            if attr.belongs_to and self.__class__.__name__ not in attr.belongs_to:
+                raise InvalidAttributeError(f"{attr.__class__} is not allowed in {self.__class__}")
+
+        inner_content = flatten_params(inner_content)
+        for item in inner_content:
+            if isinstance(item, str):
                 self._inner_tags.append(Text(item))
-
             elif issubclass(item.__class__, HtmlTag) or isinstance(item, Text):
                 self._inner_tags.append(item)
-
             else:
-                raise HtmlBuildError(f"All HtmlTag __init__ params must be 'HtmlTag', 'HtmlTagAttributes' or 'Text' instances, {item} was found")
+                raise HtmlBuildError(f"All HtmlTag __init__ inner content must be 'HtmlTag' or 'str' instances, [{item}->{item.__class__.__name__}] found")
 
 
     @property
@@ -50,7 +50,7 @@ class HtmlTag:
         tag_components: list = [
                                    f"<{self._name}",
                                ] + [
-                                   f" {attribute.name}='{str(attribute.value)}'" for attribute in self._attributes
+                                   f" {attribute.name}='{str(attribute.value)}'" for attribute in self.attributes
                                ] + [
                                    f">",
                                    "".join((tag.render() for tag in self._inner_tags)),
@@ -70,7 +70,7 @@ class SelfClosingHtmlTag(HtmlTag):
         tag_components: list = [
                                    f"<{self._name}",
                                ] + [
-                                   f" {attribute.name}='{str(attribute.value)}'" for attribute in self._attributes
+                                   f" {attribute.name}='{str(attribute.value)}'" for attribute in self.attributes
                                ] + [
                                    f"/>",
                                ]
