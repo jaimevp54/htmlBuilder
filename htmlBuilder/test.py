@@ -114,7 +114,6 @@ class TestTagAttributeRendering(unittest.TestCase):
                     self.expected_error_count += 1
                     try:
                         tag([attribute('test')])
-                        print('ups')
                     except InvalidAttributeError:
                         self.error_count += 1
         self.assertEqual(self.error_count, self.expected_error_count)
