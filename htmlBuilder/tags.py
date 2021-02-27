@@ -9,8 +9,10 @@ class Text:
     def __init__(self, text):
         self.text = text
 
-    def render(self):
-        return self.text
+    def _render(self, pretty=False, nesting_level=None) -> str:
+        separator = "\n" if pretty else ''
+        indentation = "  "*nesting_level if pretty else ''
+        return f"{indentation}{self.text}{separator}"
 
     def __str__(self):
         return self.text
@@ -19,60 +21,95 @@ class Text:
 class HtmlTag:
     belongs_to: list = None
 
-    def __init__(self, attributes=tuple(), *inner_content):
-        self._name = self.__class__.__name__.lower()
-        self.attributes = attributes
-        self._inner_tags = []
-
+    @classmethod
+    def validate_attributes(cls, attributes):
         for attr in attributes:
             if not isinstance(attr, HtmlTagAttribute):
                 raise HtmlBuildError(
                     "HtmlTag's 'attributes' elements must be HtmlTagAttribute instances. [{attr}->{attr.__class__.__name__}] found" 
                 )
-            if attr.belongs_to and self.__class__.__name__ not in attr.belongs_to:
-                raise InvalidAttributeError(f"{attr.__class__} is not allowed in {self.__class__}")
+            if attr.belongs_to and cls.__name__ not in attr.belongs_to:
+                raise InvalidAttributeError(f"{attr.__class__} is not allowed in {cls}")
+
+    @classmethod
+    def validate_inner_html(cls, inner_html):
+        for item in inner_html:
+            if not (
+                isinstance(item, str) or
+                issubclass(item.__class__, HtmlTag) or
+                isinstance(item, Text)):
+                raise HtmlBuildError(f"All inner_html elements must be 'HtmlTag' or 'str' instances, [{item}->{item.__class__.__name__}] found")
+        return True
+
+    def __init__(self, attributes=tuple(), *inner_content):
+        self._name = self.__class__.__name__.lower()
+        self.attributes = attributes
+        self._inner_html = []
+
+        self.validate_attributes(self.attributes)
 
         inner_content = flatten_params(inner_content)
+        self.validate_inner_html(inner_content)
         for item in inner_content:
             if isinstance(item, str):
-                self._inner_tags.append(Text(item))
-            elif issubclass(item.__class__, HtmlTag) or isinstance(item, Text):
-                self._inner_tags.append(item)
+                self._inner_html.append(Text(item))
             else:
-                raise HtmlBuildError(f"All HtmlTag __init__ inner content must be 'HtmlTag' or 'str' instances, [{item}->{item.__class__.__name__}] found")
+                self._inner_html.append(item)
 
+    @property
+    def inner_html(self):
+        return self._inner_html
+
+    @inner_html.setter
+    def inner_html(self, content):
+        self.validate_inner_html(flatten_params(content))
+        self._inner_html = []
+        for item in content:
+            if isinstance(item, str):
+                self._inner_html.append(Text(item))
+            else:
+                self._inner_html.append(item)
 
     @property
     def name(self) -> str:
         return self._name
 
-    def render(self) -> str:
+    def render(self, pretty=False) -> str:
+        return self._render(pretty=pretty, nesting_level=0)
+
+    def _render(self, pretty=False, nesting_level=None) -> str:
+        separator = "\n" if pretty else ''
+        indentation = "  "*nesting_level if pretty else ''
+
         tag_components: list = [
-                                   f"<{self._name}",
-                               ] + [
-                                   f" {attribute.name}='{str(attribute.value)}'" for attribute in self.attributes
-                               ] + [
-                                   f">",
-                                   "".join((tag.render() for tag in self._inner_tags)),
-                                   f"</{self._name}>",
-                               ]
+                f"{indentation}<{self._name}",
+            ] + [
+                f" {attribute.name}='{str(attribute.value)}'" for attribute in self.attributes
+            ] + [
+                f">{separator if self.inner_html else ''}",
+                "".join((tag._render(pretty, nesting_level+1) for tag in self.inner_html)),
+                f"{indentation if self.inner_html else ''}</{self._name}>{separator}",
+            ]
+
         return "".join(tag_components)
 
 
 class SelfClosingHtmlTag(HtmlTag):
     def __init__(self, *params):
         super().__init__(*params)
-        if self._inner_tags:
-            raise NestingError(f"SelfClosingHtmlTag {self.name} should not have inner tags, {self._inner_tags[0].name} was found")
+        if self._inner_html:
+            raise NestingError(f"SelfClosingHtmlTag {self.name} must not have inner html, {self._inner_html[0].name} was found")
 
 
-    def render(self):
+    def _render(self, pretty=False, nesting_level=None) -> str:
+        separator = "\n" if pretty else ''
+        indentation = "  "*nesting_level if pretty else ''
         tag_components: list = [
-                                   f"<{self._name}",
+                                   f"{indentation}<{self._name}",
                                ] + [
                                    f" {attribute.name}='{str(attribute.value)}'" for attribute in self.attributes
                                ] + [
-                                   f"/>",
+                                   f"/>{separator}",
                                ]
         return "".join(tag_components)
 
@@ -80,8 +117,10 @@ class SelfClosingHtmlTag(HtmlTag):
 class DOCTYPE(SelfClosingHtmlTag):
     """Defines the document type"""
 
-    def render(self):
-        return f"<!DOCTYPE>"
+    def _render(self, pretty=False, nesting_level=None) -> str:
+        separator = "\n" if pretty else ''
+        indentation = "  "*nesting_level if pretty else ''
+        return f"{indentation}<!DOCTYPE>{separator}"
 
 
 class A(HtmlTag):
