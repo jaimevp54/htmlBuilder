@@ -10,3 +10,4 @@ pip-delete-this-directory.txt
 use_examples.py
 output.html
 .pypirc
+.coverage
