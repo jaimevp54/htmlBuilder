@@ -1,7 +1,7 @@
 import unittest
 
 from htmlBuilder.exceptions import HtmlBuildError, InvalidAttributeError, NestingError
-from htmlBuilder.tags import HtmlTag, SelfClosingHtmlTag, DOCTYPE, Div, A, Text
+from htmlBuilder.tags import HtmlTag, SelfClosingHtmlTag, DOCTYPE, Div, A, Text, Body
 from htmlBuilder.utils import flatten_params
 from htmlBuilder.attributes import HtmlTagAttribute, InlineStyle, Href, Autofocus
 
@@ -76,6 +76,49 @@ class TestTagRendering(unittest.TestCase):
             ).render(),
             f"<div>{test_str}<a></a>{test_str}</div>"
         )
+
+    def test_pretty_render(self):
+        def build_html_text(nesting_level, current_level=1):
+            if current_level>nesting_level:
+                return
+
+            print(f"build_html_text (nesting_level={nesting_level}): running on level {current_level}")
+            html_text = ''
+            html_text += "  "*current_level + "<htmltag>"
+
+            result = build_html_text(nesting_level, current_level+1)
+            if result:
+                html_text += "\n" + result
+                html_text += "\n" + "  "*current_level + "</htmltag>\n"
+            else:
+                html_text += "</htmltag>\n"
+
+            html_text += "  "*current_level + "<htmltag></htmltag>\n"
+            html_text += "  "*current_level + "<selfclosinghtmltag/>\n"
+            html_text += "  "*current_level + f"level {current_level}"
+
+            return html_text
+
+        root_element = Body()
+        current_element = root_element
+
+        for i in range(1,10):
+            inner_div = HtmlTag()
+
+            current_element.inner_html = [
+                inner_div,
+                HtmlTag(),
+                SelfClosingHtmlTag(),
+                f"level {i}"
+            ]
+
+            self.assertEqual(
+                f"<body>\n{build_html_text(nesting_level=i)}\n</body>\n",
+                root_element.render(pretty=True),
+            )
+
+            current_element = inner_div
+
 
 
 class TestTagAttributeRendering(unittest.TestCase):
