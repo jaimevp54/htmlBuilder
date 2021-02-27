@@ -1,6 +1,8 @@
-# Html Builder
+# Html Builder 
 
 HtmlBuilder is a python library that allows you to render html files by writing python code.
+
+[![codecov](https://codecov.io/gh/jaimevp54/htmlBuilder/branch/develop/graph/badge.svg?token=C752JNEyJT)](https://codecov.io/gh/jaimevp54/htmlBuilder)
 
 # Why do you care about this library?
 
