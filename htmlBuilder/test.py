@@ -1,7 +1,7 @@
 import unittest
 
 from htmlBuilder.exceptions import HtmlBuildError, InvalidAttributeError, NestingError
-from htmlBuilder.tags import HtmlTag, SelfClosingHtmlTag, DOCTYPE, Div, A, Text, Body
+from htmlBuilder.tags import HtmlTag, SelfClosingHtmlTag, DOCTYPE, Div, A, Text, Html
 from htmlBuilder.utils import flatten_params
 from htmlBuilder.attributes import HtmlTagAttribute, InlineStyle, Href, Autofocus
 
@@ -37,6 +37,10 @@ class TestTagRendering(unittest.TestCase):
     def test_empty_tag_render(self):
         for tag in self.not_self_closing_tags:
             self.assertEqual(tag().render(), f"<{tag.__name__.lower()}></{tag.__name__.lower()}>")
+
+    def test_render_with_doctype_option(self):
+        self.assertEqual("<!DOCTYPE html><htmltag></htmltag>", HtmlTag().render(doctype=True))
+        self.assertEqual("<!DOCTYPE html><selfclosinghtmltag/>", SelfClosingHtmlTag().render(doctype=True))
 
     def test_one_level_nested_tag_render(self):
         for tag_x in self.not_self_closing_tags:
@@ -99,7 +103,7 @@ class TestTagRendering(unittest.TestCase):
 
             return html_text
 
-        root_element = Body()
+        root_element = Html()
         current_element = root_element
 
         for i in range(1,10):
@@ -113,8 +117,8 @@ class TestTagRendering(unittest.TestCase):
             ]
 
             self.assertEqual(
-                f"<body>\n{build_html_text(nesting_level=i)}\n</body>\n",
-                root_element.render(pretty=True),
+                f"<!DOCTYPE html>\n<html>\n{build_html_text(nesting_level=i)}\n</html>\n",
+                root_element.render(pretty=True, doctype=True),
             )
 
             current_element = inner_div
