@@ -74,8 +74,12 @@ class HtmlTag:
     def name(self) -> str:
         return self._name
 
-    def render(self, pretty=False) -> str:
-        return self._render(pretty=pretty, nesting_level=0)
+    def render(self, pretty=False, doctype=False) -> str:
+        result = ''
+        if doctype:
+            result += DOCTYPE()._render(pretty=pretty)
+        result+= self._render(pretty=pretty, nesting_level=0)
+        return result
 
     def _render(self, pretty=False, nesting_level=None) -> str:
         separator = "\n" if pretty else ''
@@ -119,8 +123,7 @@ class DOCTYPE(SelfClosingHtmlTag):
 
     def _render(self, pretty=False, nesting_level=None) -> str:
         separator = "\n" if pretty else ''
-        indentation = "  "*nesting_level if pretty else ''
-        return f"{indentation}<!DOCTYPE>{separator}"
+        return f"<!DOCTYPE html>{separator}"
 
 
 class A(HtmlTag):
