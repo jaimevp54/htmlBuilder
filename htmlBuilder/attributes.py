@@ -17,17 +17,17 @@ class HtmlTagAttribute:
         return f"{self._name}='{self._value}'"
 
 
-class InlineStyle(HtmlTagAttribute):
+class Style(HtmlTagAttribute):
     """Specifies an inline CSS style for an element"""
 
     def __init__(self, value: str = '', **params):
         self._name: str = 'style'
         self._value: str = value
         if not value:
-            for key, val in params.items():
-                key = key.replace("_", "-")
-                setattr(self, key, val)
-                self._value += f"{key}: {val}; "
+            self._value = "; ".join(
+                f"{key.replace('_','-')}: {val}"
+                for key, val in params.items()
+            )
 
     def __str__(self):
         return self._value
