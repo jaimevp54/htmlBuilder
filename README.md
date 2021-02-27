@@ -3,7 +3,7 @@
 HtmlBuilder is a python library that allows you to render html files by writing python code.
 
 [![codecov](https://codecov.io/gh/jaimevp54/htmlBuilder/branch/develop/graph/badge.svg?token=C752JNEyJT)](https://codecov.io/gh/jaimevp54/htmlBuilder)
-
+![python version badge](https://img.shields.io/pypi/pyversions/htmlBuilder)
 # Why do you care about this library?
 
 When rendering HTML programmatically there are other options available (template engines and other rendering libraries) but these are often limited in what they can do or add a new level of abstraction that has to be learned to be productive. HtmlBuilder tries to improve on this by following the next few points:
