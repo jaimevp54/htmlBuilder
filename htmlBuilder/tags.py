@@ -99,8 +99,8 @@ class HtmlTag:
 
 
 class SelfClosingHtmlTag(HtmlTag):
-    def __init__(self, *params):
-        super().__init__(*params)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         if self._inner_html:
             raise NestingError(f"SelfClosingHtmlTag {self.name} must not have inner html, {self._inner_html[0].name} was found")
 
