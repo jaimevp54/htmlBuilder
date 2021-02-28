@@ -152,7 +152,7 @@ Python 3.6 or higher is required to use htmlBuilder. If you meet this requiremen
 How to contribute
 -----------------
 
-The whole source code is available on `GitHub <www.github.com/jaimevp54/htmlBuilder>`_.
+The complete source code is available on `GitHub <www.github.com/jaimevp54/htmlBuilder>`_.
 
 Feel free to open an `Issue <www.github.com/jaimevp54/htmlBuilder/issues>`_ or to submit a pull request.
 
