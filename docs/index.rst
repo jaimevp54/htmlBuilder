@@ -154,7 +154,7 @@ How to contribute
 
 The whole source code is available on `GitHub <www.github.com/jaimevp54/htmlBuilder>`_.
 
-Feel to open an `Issue <www.github.com/jaimevp54/htmlBuilder/issues>`_ or to submit a pull request.
+Feel free to open an `Issue <www.github.com/jaimevp54/htmlBuilder/issues>`_ or to submit a pull request.
 
 Liscense
 --------
