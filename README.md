@@ -4,13 +4,13 @@ HtmlBuilder is a python library that allows you to render html files by writing 
 
 [![codecov](https://codecov.io/gh/jaimevp54/htmlBuilder/branch/develop/graph/badge.svg?token=C752JNEyJT)](https://codecov.io/gh/jaimevp54/htmlBuilder)
 ![python version badge](https://img.shields.io/pypi/pyversions/htmlBuilder)
-# Why do you care about this library?
+# Why should you care about this library?
 
-When rendering HTML programmatically there are other options available (template engines and other rendering libraries) but these are often limited in what they can do or add a new level of abstraction that has to be learned to be productive. HtmlBuilder tries to improve on this by following the next few points:
+When rendering HTML programmatically, there are other options available (template engines and other rendering libraries). Still, these are often limited in what they can do or add a new level of abstraction, which has to be learned to be productive. HtmlBuilder tries to improve on this by following the next few points:
 
-- **Minimal learning curve**:(For the most part) Python and HTML knowledge are all that are needed to use this tool effectively.
-- **Real python code**: The resulting code looks and behaves as you would expect from other python code.
-- **Easily testable**: The html object structure can be introspected **before** being rendered as a html string for it to be easily tested.
+- **Minimal learning curve**: Users should need no more than  Python and HTML knowledge to be productive using this tool.
+- **Real python code**: The final code looks and behaves as you would expect from other python code.
+- **Easily testable**: Users can introspect and unit test the HTML object structure **before** rendering the HTML string.
 
 ## Installation
 run `pip install htmlbuilder`
@@ -18,47 +18,48 @@ run `pip install htmlbuilder`
 
 ### A simple example
 ```python
-# import necesary tags and attributes
+# import necessary tags and attributes
 from htmlBuilder.tags import *
-from htmlBuilder.attributes import Class, InlineStyle
+from htmlBuilder.attributes import Class, Style as InlineStyle
 
 
-# html tags are represented as classes 
+# html tags are represented by classes 
 html = Html([],
     # any tag can receive another tag as constructor parameter
     Head([],
-        Title("A beautiful site")
+        Title([], "A beautiful site")
     ),
-    Body([Class('btn', 'btn-success'), InlineStyle(background_color='red', bottom='35px')],
+    Body([Class('btn btn-success'), InlineStyle(background_color='red', bottom='35px')],
         Hr(),
         Div([],
             Div()
         )
-    ),
+    )
 )
 # no closing tags are required
 
 # call the render() method to return tag instances as html text
-print(html.render())
+print(html.render(pretty=True))
+```
 
-
-######### result #########
-
-# <html>
-#     <head>
-#         <title>A beautiful site</title>
-#     </head>
-#     <body style='background-color:red; bottom:35px;' class='btn btn-success'>
-#         <hr/>
-#         <div>
-#             <div></div>
-#         </div>
-#     </body>
-# </html>
+#### Output
+```html
+<html>
+  <head>
+    <title>
+      A beautiful site
+    </title>
+  </head>
+  <body class='btn btn-success' style='background-color: red; bottom: 35px'>
+    <hr/>
+    <div>
+      <div></div>
+    </div>
+  </body>
+</html>
 ```
 
 ### A not so simple example
-
 ```python
 from htmlBuilder.attributes import Class
 from htmlBuilder.tags import Html, Head, Title, Body, Nav, Div, Footer, Ul, Li
@@ -107,37 +108,60 @@ html = Html([],
     )
 )
 
-print(html.render())
+print(html.render(pretty=True, doctype=True)) # pass doctype=True to add a document declaration
+```
 
+#### Output 
 
-######### result #########
-
-# <html>
-# <head><title>An awesome site</title></head>
-# <body>
-# <nav class='nav pretty'>
-#     <div>A beautiful NavBar</div>
-# </nav>
-# <div class='user-jose'>
-#     <div>Jose</div>
-#     <ul>
-#         <li>A beautiful mind</li>
-#         <li>Red</li>
-#     </ul>
-# </div>
-# <div class='user-jaime'>
-#     <div>Jaime</div>
-#     <ul>
-#         <li>The breakfast club</li>
-#         <li>Fight club</li>
-#     </ul>
-# </div>
-# <div class='user-jhon'>
-#     <div>Jhon</div>
-#     Favorite number is too high
-# </div>
-# <footer>My Footer</footer>
-# </body>
-# </html>
-
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      An awesome site
+    </title>
+  </head>
+  <body>
+    <nav class='nav pretty'>
+      <div>
+        A beautiful NavBar
+      </div>
+    </nav>
+    <div class='user-jose'>
+      <div>
+        Jose
+      </div>
+      <ul>
+        <li>
+          A beautiful mind
+        </li>
+        <li>
+          Red
+        </li>
+      </ul>
+    </div>
+    <div class='user-jaime'>
+      <div>
+        Jaime
+      </div>
+      <ul>
+        <li>
+          The breakfast club
+        </li>
+        <li>
+          Fight club
+        </li>
+      </ul>
+    </div>
+    <div class='user-jhon'>
+      <div>
+        Jhon
+      </div>
+      Favorite number is too high
+    </div>
+    <footer>
+      My Footer
+    </footer>
+  </body>
+</html>
 ```
