@@ -17,6 +17,9 @@ class TestFlattenMethod(unittest.TestCase):
     def test_nested_three_levels(self):
         self.assertEqual(flatten_params([1, [[2, [3]], 4]]), [1, 2, 3, 4])
 
+    def test_flatten_generators(self):
+        self.assertEqual(flatten_params([1, [[2, [3]], 4], (i for i in range(5))]), [1, 2, 3, 4, 0, 1, 2, 3, 4])
+
 
 class TestTagObjectCreation(unittest.TestCase):
 
