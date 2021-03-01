@@ -1,3 +1,5 @@
+# Attributes docstrings pulled from https://www.w3schools.com/tags/ref_attributes.asp
+
 class HtmlTagAttribute:
     belongs_to: list = None
 
@@ -29,8 +31,13 @@ class Style(HtmlTagAttribute):
                 for key, val in params.items()
             )
 
-    def __str__(self):
-        return self._value
+
+class Data_(HtmlTagAttribute):
+    """Used to store custom data private to the page or application"""
+
+    def __init__(self, name, value):
+        self._name = "data-"+name
+        self._value = value
 
 
 class Accept(HtmlTagAttribute):

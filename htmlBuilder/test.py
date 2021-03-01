@@ -3,8 +3,7 @@ import unittest
 from htmlBuilder.exceptions import HtmlBuildError, InvalidAttributeError, NestingError
 from htmlBuilder.tags import HtmlTag, SelfClosingHtmlTag, DOCTYPE, Div, A, Text, Html
 from htmlBuilder.utils import flatten_params
-from htmlBuilder.attributes import HtmlTagAttribute, Href, Autofocus
-from htmlBuilder.attributes import Style as InlineStyle
+from htmlBuilder.attributes import HtmlTagAttribute, Data_, Style as InlineStyle
 
 
 class TestFlattenMethod(unittest.TestCase):
@@ -147,10 +146,17 @@ class TestTagAttributeRendering(unittest.TestCase):
             HtmlTag([InlineStyle("custom-param1: test; custom-param2: test")]).render(),
             f"<htmltag style='custom-param1: test; custom-param2: test'></htmltag>"
         )
+
     def test_render_style_attribute_from_named_params(self):
         self.assertEqual(
             HtmlTag([InlineStyle(custom_param1='test', custom_param2='test')]).render(),
             f"<htmltag style='custom-param1: test; custom-param2: test'></htmltag>"
+        )
+
+    def test_render_data_attribute(self):
+        self.assertEqual(
+            HtmlTag([Data_("test-value", "Testing")]).render(),
+            "<htmltag data-test-value='Testing'></htmltag>"
         )
 
     def test_raise_error_when_invalid_type_is_provided(self):
