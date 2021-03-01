@@ -1,12 +1,12 @@
-# Html Builder 
+# HtmlBuilder 
 
-HtmlBuilder is a python library that allows you to render html files by writing python code.
+HtmlBuilder is a python library that allows you to render HTML files by writing python code. And to make use of python features, clean syntax, and object-oriented design to their full potential.   
 
 [![codecov](https://codecov.io/gh/jaimevp54/htmlBuilder/branch/develop/graph/badge.svg?token=C752JNEyJT)](https://codecov.io/gh/jaimevp54/htmlBuilder)
 ![python version badge](https://img.shields.io/pypi/pyversions/htmlBuilder)
 # Why should you care about this library?
 
-When rendering HTML programmatically, there are other options available (template engines and other rendering libraries). Still, these are often limited in what they can do or add a new level of abstraction, which has to be learned to be productive. HtmlBuilder tries to improve on this by following the next few points:
+When rendering HTML programmatically, there are other options available (template engines and other rendering libraries). Still, these are often limited in what they can do, or it's necessary to learn a new level of abstraction before being productive. HtmlBuilder tries to improve on this by following the next few ideas: 
 
 - **Minimal learning curve**: Users should need no more than  Python and HTML knowledge to be productive using this tool.
 - **Real python code**: The final code looks and behaves as you would expect from other python code.
@@ -44,19 +44,19 @@ print(html.render(pretty=True))
 
 #### Output
 ```html
-<html>
-  <head>
-    <title>
-      A beautiful site
-    </title>
-  </head>
-  <body class='btn btn-success' style='background-color: red; bottom: 35px'>
-    <hr/>
-    <div>
-      <div></div>
-    </div>
-  </body>
-</html>
+    <html>
+      <head>
+        <title>
+          A beautiful site
+        </title>
+      </head>
+      <body class='btn btn-success' style='background-color: red; bottom: 35px'>
+        <hr/>
+        <div>
+          <div></div>
+        </div>
+      </body>
+    </html>
 ```
 
 ### A not so simple example
@@ -114,54 +114,54 @@ print(html.render(pretty=True, doctype=True)) # pass doctype=True to add a docum
 #### Output 
 
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>
-      An awesome site
-    </title>
-  </head>
-  <body>
-    <nav class='nav pretty'>
-      <div>
-        A beautiful NavBar
-      </div>
-    </nav>
-    <div class='user-jose'>
-      <div>
-        Jose
-      </div>
-      <ul>
-        <li>
-          A beautiful mind
-        </li>
-        <li>
-          Red
-        </li>
-      </ul>
-    </div>
-    <div class='user-jaime'>
-      <div>
-        Jaime
-      </div>
-      <ul>
-        <li>
-          The breakfast club
-        </li>
-        <li>
-          Fight club
-        </li>
-      </ul>
-    </div>
-    <div class='user-jhon'>
-      <div>
-        Jhon
-      </div>
-      Favorite number is too high
-    </div>
-    <footer>
-      My Footer
-    </footer>
-  </body>
-</html>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>
+          An awesome site
+        </title>
+      </head>
+      <body>
+        <nav class='nav pretty'>
+          <div>
+            A beautiful NavBar
+          </div>
+        </nav>
+        <div class='user-jose'>
+          <div>
+            Jose
+          </div>
+          <ul>
+            <li>
+              A beautiful mind
+            </li>
+            <li>
+              Red
+            </li>
+          </ul>
+        </div>
+        <div class='user-jaime'>
+          <div>
+            Jaime
+          </div>
+          <ul>
+            <li>
+              The breakfast club
+            </li>
+            <li>
+              Fight club
+            </li>
+          </ul>
+        </div>
+        <div class='user-jhon'>
+          <div>
+            Jhon
+          </div>
+          Favorite number is too high
+        </div>
+        <footer>
+          My Footer
+        </footer>
+      </body>
+    </html>
 ```
