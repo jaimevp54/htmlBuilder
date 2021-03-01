@@ -26,7 +26,7 @@ class HtmlTag:
         for attr in attributes:
             if not isinstance(attr, HtmlTagAttribute):
                 raise HtmlBuildError(
-                    "HtmlTag's 'attributes' elements must be HtmlTagAttribute instances. [{attr}->{attr.__class__.__name__}] found" 
+                    f"HtmlTag's 'attributes' elements must be HtmlTagAttribute instances. [{attr}->{attr.__class__.__name__}] found"
                 )
             if attr.belongs_to and cls.__name__ not in attr.belongs_to:
                 raise InvalidAttributeError(f"{attr.__class__} is not allowed in {cls}")
