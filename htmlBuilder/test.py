@@ -90,7 +90,6 @@ class TestTagRendering(unittest.TestCase):
             if current_level>nesting_level:
                 return
 
-            print(f"build_html_text (nesting_level={nesting_level}): running on level {current_level}")
             html_text = ''
             html_text += "  "*current_level + "<htmltag>"
 
