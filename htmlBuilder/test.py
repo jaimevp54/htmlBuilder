@@ -158,6 +158,7 @@ class TestTagAttributeRendering(unittest.TestCase):
             HtmlTag([HtmlTag])
 
 
+    @unittest.skip('Feature disabled until full HTML validation is implements')
     def test_raise_error_if_not_in_allowed_tag(self):
         self.error_count = 0
         self.expected_error_count = 0
