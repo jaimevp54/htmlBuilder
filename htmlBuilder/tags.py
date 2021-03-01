@@ -28,8 +28,9 @@ class HtmlTag:
                 raise HtmlBuildError(
                     f"HtmlTag's 'attributes' elements must be HtmlTagAttribute instances. [{attr}->{attr.__class__.__name__}] found"
                 )
-            if attr.belongs_to and cls.__name__ not in attr.belongs_to:
-                raise InvalidAttributeError(f"{attr.__class__} is not allowed in {cls}")
+            # TODO: enable this when implementing HTML syntax validation
+            # if attr.belongs_to and cls.__name__ not in attr.belongs_to:
+            #     raise InvalidAttributeError(f"{attr.__class__} is not allowed in {cls}")
 
     @classmethod
     def validate_inner_html(cls, inner_html):
