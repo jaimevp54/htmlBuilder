@@ -164,18 +164,3 @@ class TestTagAttributeRendering(unittest.TestCase):
             HtmlTag(["invalid_attribute"])
         with self.assertRaises(HtmlBuildError):
             HtmlTag([HtmlTag])
-
-
-    @unittest.skip('Feature disabled until full HTML validation is implements')
-    def test_raise_error_if_not_in_allowed_tag(self):
-        self.error_count = 0
-        self.expected_error_count = 0
-        for tag in self.all_tags:
-            for attribute in self.all_attributes:
-                if attribute.belongs_to and tag.__name__ not in attribute.belongs_to:
-                    self.expected_error_count += 1
-                    try:
-                        tag([attribute('test')])
-                    except InvalidAttributeError:
-                        self.error_count += 1
-        self.assertEqual(self.error_count, self.expected_error_count)
