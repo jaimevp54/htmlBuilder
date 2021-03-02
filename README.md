@@ -1,6 +1,6 @@
-# HtmlBuilder 
+# [HtmlBuilder](https://htmlbuilder.readthedocs.io/) 
 
-HtmlBuilder is a python library that allows you to render HTML files by writing python code. And to make use of python features, clean syntax, and object-oriented design to their full potential.   
+HtmlBuilder is a python library that allows you to render HTML files by writing python code. And to make use of python features, clean syntax, and object-oriented design to their full potential. (Full documentation available at [readthedocs.io](https://htmlbuilder.readthedocs.io/))
 
 [![codecov](https://codecov.io/gh/jaimevp54/htmlBuilder/branch/develop/graph/badge.svg?token=C752JNEyJT)](https://codecov.io/gh/jaimevp54/htmlBuilder)
 ![python version badge](https://img.shields.io/pypi/pyversions/htmlBuilder)
