@@ -3,7 +3,7 @@ from setuptools import setup
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-_VERSION = '0.2.1'
+_VERSION = '1.0.0'
 
 setup(
     name='htmlBuilder',
