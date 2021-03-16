@@ -13,7 +13,7 @@ When rendering HTML programmatically, there are other options available (templat
 - **Easily testable**: Users can introspect and unit test the HTML object structure **before** rendering the HTML string.
 
 ## Installation
-run `pip install htmlbuilder`
+run `pip install htmlBuilder`
 ## Use examples:
 
 ### A simple example
